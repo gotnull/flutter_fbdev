@@ -30,7 +30,8 @@ echo "› verifying"
 dart format --output=none --set-exit-if-changed .
 flutter analyze
 flutter test
-flutter pub publish --dry-run
+# (No local `pub publish --dry-run` here: it would flag the just-bumped, not-yet-
+# committed files as a warning and abort. The publish workflow validates on CI.)
 
 echo "› committing + tagging v$V"
 git add pubspec.yaml lib/src/version.dart CHANGELOG.md
