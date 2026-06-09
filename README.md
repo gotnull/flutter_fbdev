@@ -185,6 +185,10 @@ unmapped.
 - Deploy tooling targets macOS hosts + Samba-enabled firmware (Knulli/Batocera
   family); adapt `tool/` for your setup.
 - No touch - design for buttons (or use the input layer to drive focus).
+- **UI scale:** the embedder sets `devicePixelRatio` to **1.25** by default so
+  fonts/widgets aren't tiny on small dense panels. Override per-device with the
+  `FBDEV_PIXEL_RATIO` env var (e.g. `FBDEV_PIXEL_RATIO=1.5`); your app lays out
+  responsively within the resulting logical size.
 
 ## Releasing
 

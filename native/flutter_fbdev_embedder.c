@@ -456,14 +456,27 @@ int main(int argc, char **argv) {
   fprintf(stderr, "[engine] running\n");
 
   // --- window metrics (kicks the first frame) ---
+  // The framebuffer size is fixed, but the device-pixel-ratio controls UI
+  // density: a higher ratio means fewer logical pixels, so widgets/text render
+  // larger. These panels are small and dense, so the default is >1.0 to give a
+  // comfortable size out of the box; override per-device with FBDEV_PIXEL_RATIO.
+  // The app still lays out responsively within the logical size.
+  double pixel_ratio = 1.25;
+  const char *pr = getenv("FBDEV_PIXEL_RATIO");
+  if (pr && *pr) {
+    double v = atof(pr);
+    if (v >= 0.25 && v <= 8.0) pixel_ratio = v;
+  }
   FlutterWindowMetricsEvent wm = {0};
   wm.struct_size = sizeof(FlutterWindowMetricsEvent);
   wm.width = g_w;
   wm.height = g_h;
-  wm.pixel_ratio = 1.0;
+  wm.pixel_ratio = pixel_ratio;
   FlutterEngineSendWindowMetricsEvent(g_engine, &wm);
-  fprintf(stderr, "[engine] sent metrics %zux%zu - first frame requested\n", g_w,
-          g_h);
+  fprintf(stderr,
+          "[engine] sent metrics %zux%zu @ ratio %.2f (logical %.0fx%.0f) - "
+          "first frame requested\n",
+          g_w, g_h, pixel_ratio, g_w / pixel_ratio, g_h / pixel_ratio);
 
   pthread_t input;
   pthread_create(&input, NULL, input_thread, NULL);
