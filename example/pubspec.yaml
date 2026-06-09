@@ -1,0 +1,24 @@
+name: flutter_fbdev_example
+description: Minimal flutter_fbdev handheld example - shows pressed buttons.
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_fbdev:
+    path: ../
+  # Background chiptune playback (desktop/mobile; a no-op where the embedder
+  # has no audio plugin, which the demo handles gracefully).
+  audioplayers: ^6.1.0
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - assets/audio/blank_page.ogg
