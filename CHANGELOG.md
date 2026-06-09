@@ -1,3 +1,7 @@
+## 0.1.2
+
+- Shorten the pubspec description to fit pub.dev's 180-character limit.
+
 ## 0.1.1
 
 - Default `devicePixelRatio` to 1.25 so fonts and widgets aren't tiny on small,
