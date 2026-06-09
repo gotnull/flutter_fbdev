@@ -1,0 +1,15 @@
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+example/.dart_tool/
+example/build/
+*.iml
+.idea/
+
+# example desktop runners (preview only, not part of the published package)
+example/macos/
+example/linux/
+example/windows/
