@@ -186,6 +186,27 @@ unmapped.
   family); adapt `tool/` for your setup.
 - No touch - design for buttons (or use the input layer to drive focus).
 
+## Releasing
+
+Publishing happens on a version **tag**, not on every push (CI only lints/tests
+pushes). The first publish is manual; after that it's automated:
+
+```bash
+# First publish only (creates the package on pub.dev - needs an interactive login)
+flutter pub publish
+
+# Then, once on pub.dev, enable Automated publishing on the package admin page
+# (GitHub Actions, repo gotnull/flutter_fbdev, tag pattern v{{version}}).
+
+# Every release after that:
+tool/release.sh 0.1.1     # bumps pubspec + version.dart, verifies, tags, pushes
+```
+
+Pushing the `vX.Y.Z` tag triggers [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
+which publishes via pub.dev's OIDC automated publishing (no tokens stored).
+`flutterFbdevVersion` mirrors the pubspec version (guarded by a test) so the
+running version is visible in-app.
+
 ## License
 
 MIT - see [LICENSE](LICENSE).

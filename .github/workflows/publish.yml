@@ -1,0 +1,18 @@
+name: Publish to pub.dev
+
+# Publishes a release when a version tag (vX.Y.Z) is pushed - NOT on every push.
+# Uses pub.dev automated publishing (OIDC, no secrets): enable it once on the
+# package's pub.dev admin page (Automated publishing -> GitHub Actions, repo
+# gotnull/flutter_fbdev, tag pattern v{{version}}). Cut a release with
+# `tool/release.sh X.Y.Z`, which bumps the version and pushes the tag.
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
+
+jobs:
+  publish:
+    permissions:
+      id-token: write # authenticate to pub.dev via OIDC
+      contents: read
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
