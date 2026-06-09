@@ -285,13 +285,15 @@ class _DemoScreenState extends State<_DemoScreen>
   Widget _footer() => Row(
         children: [
           const Text(
-            'sweep the sticks · Vol ▲▼ quits',
+            'sweep the sticks · Vol +/- quits',
             style: TextStyle(
                 color: _faint, fontSize: 13, fontWeight: FontWeight.w700),
           ),
           const Spacer(),
+          const Icon(Icons.music_note, size: 13, color: _faint),
+          const SizedBox(width: 3),
           const Text(
-            '♪ blank page · 4mat',
+            'blank page · 4mat',
             style: TextStyle(
                 color: _faint, fontSize: 12, fontWeight: FontWeight.w700),
           ),
@@ -382,8 +384,10 @@ class _Gamepad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget pad(HandheldButton b, String label, {double size = 40}) {
+    Widget pad(HandheldButton b, String label,
+        {double size = 40, IconData? icon}) {
       final on = down.contains(b);
+      final fg = on ? _ink : _muted;
       return Container(
         width: size,
         height: size,
@@ -395,14 +399,16 @@ class _Gamepad extends StatelessWidget {
           ],
         ),
         alignment: Alignment.center,
-        child: Text(
-          label,
-          style: TextStyle(
-            color: on ? _ink : _muted,
-            fontWeight: FontWeight.w900,
-            fontSize: 14,
-          ),
-        ),
+        child: icon != null
+            ? Icon(icon, color: fg, size: size * 0.82)
+            : Text(
+                label,
+                style: TextStyle(
+                  color: fg,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 14,
+                ),
+              ),
       );
     }
 
@@ -414,16 +420,20 @@ class _Gamepad extends StatelessWidget {
             children: [
               Align(
                   alignment: Alignment.topCenter,
-                  child: pad(HandheldButton.dpadUp, '▲')),
+                  child: pad(HandheldButton.dpadUp, '',
+                      icon: Icons.arrow_drop_up)),
               Align(
                   alignment: Alignment.bottomCenter,
-                  child: pad(HandheldButton.dpadDown, '▼')),
+                  child: pad(HandheldButton.dpadDown, '',
+                      icon: Icons.arrow_drop_down)),
               Align(
                   alignment: Alignment.centerLeft,
-                  child: pad(HandheldButton.dpadLeft, '◀')),
+                  child:
+                      pad(HandheldButton.dpadLeft, '', icon: Icons.arrow_left)),
               Align(
                   alignment: Alignment.centerRight,
-                  child: pad(HandheldButton.dpadRight, '▶')),
+                  child: pad(HandheldButton.dpadRight, '',
+                      icon: Icons.arrow_right)),
             ],
           ),
         );

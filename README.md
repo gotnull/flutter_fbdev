@@ -6,6 +6,11 @@
 
 **Run Flutter on no-DRM framebuffer handhelds, and map their gamepad.**
 
+![The flutter_fbdev demo: a live gamepad diagram, analog sticks, and a starfield, all reacting to input](media/demo.gif)
+
+> The bundled [`example/`](example) running through the embedder - the controller
+> lights up on each press, the sticks track, and the starfield reacts.
+
 A growing class of cheap ARM Linux handhelds (Anbernic RG34XXSP, RG35XX, and other
 Allwinner H700 / Mali-fbdev devices) have **no DRM/KMS** - no `/dev/dri`, no
 `libdrm`/`libgbm`. The standard embedded Flutter runtime,
