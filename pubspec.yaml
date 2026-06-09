@@ -3,7 +3,7 @@ description: >-
   Run Flutter on no-DRM framebuffer handhelds (Anbernic RG34XXSP and friends) -
   a software-rendered /dev/fb0 embedder plus gamepad/evdev input and an on-screen
   button-mapping overlay. For Allwinner/Mali-fbdev devices where flutter-pi can't run.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/gotnull/flutter_fbdev
 issue_tracker: https://github.com/gotnull/flutter_fbdev/issues
 topics:
