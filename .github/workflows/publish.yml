@@ -5,6 +5,10 @@ name: Publish to pub.dev
 # package's pub.dev admin page (Automated publishing -> GitHub Actions, repo
 # gotnull/flutter_fbdev, tag pattern v{{version}}). Cut a release with
 # `tool/release.sh X.Y.Z`, which bumps the version and pushes the tag.
+#
+# This is a Flutter package (depends on the Flutter SDK), so we install Flutter
+# and publish with `flutter pub publish`. With `id-token: write` set, the pub
+# client authenticates to pub.dev via the GitHub OIDC token automatically.
 on:
   push:
     tags:
@@ -12,7 +16,16 @@ on:
 
 jobs:
   publish:
+    runs-on: ubuntu-latest
     permissions:
       id-token: write # authenticate to pub.dev via OIDC
       contents: read
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Publish
+        run: flutter pub publish --force
