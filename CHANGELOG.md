@@ -1,3 +1,8 @@
+## 0.1.1
+
+- Default `devicePixelRatio` to 1.25 so fonts and widgets aren't tiny on small,
+  dense panels. Override per-device with the `FBDEV_PIXEL_RATIO` env var.
+
 ## 0.1.0
 
 Initial release.
