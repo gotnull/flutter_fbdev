@@ -6,10 +6,10 @@
 
 **Run Flutter on no-DRM framebuffer handhelds, and map their gamepad.**
 
-![The flutter_fbdev demo: a live gamepad diagram, analog sticks, and a starfield, all reacting to input](media/demo.gif)
-
-> The bundled [`example/`](example) running through the embedder - the controller
-> lights up on each press, the sticks track, and the starfield reacts.
+<p align="center">
+  <img src="media/demo.gif" width="720" alt="The flutter_fbdev demo: a live gamepad diagram, analog sticks, and a starfield, all reacting to input"><br>
+  <em>The bundled <a href="example"><code>example/</code></a> running through the embedder - the controller lights up on each press, the sticks track, and the starfield reacts.</em>
+</p>
 
 A growing class of cheap ARM Linux handhelds (Anbernic RG34XXSP, RG35XX, and other
 Allwinner H700 / Mali-fbdev devices) have **no DRM/KMS** - no `/dev/dri`, no
@@ -194,27 +194,6 @@ unmapped.
   fonts/widgets aren't tiny on small dense panels. Override per-device with the
   `FBDEV_PIXEL_RATIO` env var (e.g. `FBDEV_PIXEL_RATIO=1.5`); your app lays out
   responsively within the resulting logical size.
-
-## Releasing
-
-Publishing happens on a version **tag**, not on every push (CI only lints/tests
-pushes). The first publish is manual; after that it's automated:
-
-```bash
-# First publish only (creates the package on pub.dev - needs an interactive login)
-flutter pub publish
-
-# Then, once on pub.dev, enable Automated publishing on the package admin page
-# (GitHub Actions, repo gotnull/flutter_fbdev, tag pattern v{{version}}).
-
-# Every release after that:
-tool/release.sh 0.1.1     # bumps pubspec + version.dart, verifies, tags, pushes
-```
-
-Pushing the `vX.Y.Z` tag triggers [`.github/workflows/publish.yml`](.github/workflows/publish.yml),
-which publishes via pub.dev's OIDC automated publishing (no tokens stored).
-`flutterFbdevVersion` mirrors the pubspec version (guarded by a test) so the
-running version is visible in-app.
 
 ## License
 

@@ -36,3 +36,24 @@ PRs must be formatted (`dart format`), analyze clean, and pass the tests.
 ## Style
 
 Match the surrounding code and let `dart format` decide layout.
+
+## Releasing (maintainers)
+
+Releases publish on a version **tag**, never on a plain push (CI only
+lints/tests pushes). The very first publish of the package is manual:
+
+```bash
+flutter pub publish   # interactive pub.dev login; creates the package
+```
+
+Then enable **Automated publishing** on the pub.dev package admin page (GitHub
+Actions, repo `gotnull/flutter_fbdev`, tag pattern `v{{version}}`). Every release
+after that is just:
+
+```bash
+tool/release.sh X.Y.Z   # bumps pubspec + version.dart, verifies, tags vX.Y.Z, pushes
+```
+
+Pushing the tag triggers `.github/workflows/publish.yml`, which publishes via
+pub.dev's OIDC automated publishing (no stored tokens). `flutterFbdevVersion`
+mirrors the pubspec version, and a test guards against drift.
